@@ -1,6 +1,6 @@
 {
   "name": "cli-spinner",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Pasquale Boemio <boemianrapsodi@gmail.com>",
   "description": "A simple spinner",
   "main": "./index.js",
