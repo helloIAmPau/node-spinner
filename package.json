@@ -1,6 +1,6 @@
 {
-  "name": "spinner",
-  "version": "0.1.0",
+  "name": "cli-spinner",
+  "version": "0.1.1",
   "author": "Pasquale Boemio <boemianrapsodi@gmail.com>",
   "description": "A simple spinner",
   "main": "./index.js",
@@ -9,7 +9,7 @@
     "url": "https://github.com/helloIAmPau/node-spinner.git"
   },
   "keywords": [
-    "cli",
+    "cli"
   ],
   "license": "MIT",
   "engines": {
