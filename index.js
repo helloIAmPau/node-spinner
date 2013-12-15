@@ -1,7 +1,13 @@
-var spinnerChars = [ '|', '/', '-', '\\' ];
+var spinnerString = '|/-\\';
 
 var Spinner = function(textToShow){
+  this.chars = spinnerString.split("");
   this.text = textToShow || '';
+  this.setSpinnerString(spinnerString); // use default spinner string
+};
+
+Spinner.setDefaultSpinnerString = function(value) {
+  spinnerString = value;
 };
 
 Spinner.prototype.start = function() {
@@ -10,9 +16,13 @@ Spinner.prototype.start = function() {
   this.id = setInterval(function() {
     process.stdout.clearLine();
     process.stdout.cursorTo(0);
-    process.stdout.write(spinnerChars[current] + ' ' + self.text);
-    current = ++current % 4;
+    process.stdout.write(self.chars[current] + ' ' + self.text);
+    current = ++current % self.chars.length;
   }, 200);
+};
+
+Spinner.prototype.setSpinnerString = function(str) {
+  this.chars = str.split("");
 };
 
 Spinner.prototype.stop = function() {
