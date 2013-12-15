@@ -1,7 +1,12 @@
 {
   "name": "cli-spinner",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Pasquale Boemio <boemianrapsodi@gmail.com>",
+  "contributors": [
+    {
+      "name": "Brian Hirt"
+    }
+  ],
   "description": "A simple spinner",
   "main": "./index.js",
   "repository": {

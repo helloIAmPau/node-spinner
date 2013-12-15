@@ -1,13 +1,12 @@
-var spinnerString = '|/-\\';
+var defaultSpinnerString = '|/-\\';
 
 var Spinner = function(textToShow){
-  this.chars = spinnerString.split("");
   this.text = textToShow || '';
-  this.setSpinnerString(spinnerString); // use default spinner string
+  this.setSpinnerString(defaultSpinnerString); // use default spinner string
 };
 
 Spinner.setDefaultSpinnerString = function(value) {
-  spinnerString = value;
+  defaultSpinnerString = value;
 };
 
 Spinner.prototype.start = function() {

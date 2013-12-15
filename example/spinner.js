@@ -1,4 +1,5 @@
-var Spinner = require('cli-spinner').Spinner;
+//var Spinner = require('cli-spinner').Spinner; <- if you use npm
+var Spinner = require('../index.js').Spinner;
 
 var spinner = new Spinner(': default spinner instance');
 spinner.start();
