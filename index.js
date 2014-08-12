@@ -25,7 +25,7 @@ Spinner.prototype.setSpinnerString = function(str) {
 };
 
 Spinner.prototype.stop = function(clearLine) {
-  if (clearLine) {
+  if (this.id && clearLine) {
     process.stdout.clearLine();
   }
   clearInterval(this.id);
