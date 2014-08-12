@@ -17,7 +17,7 @@ npm install cli-spinner
 Creates a new spinner object with the default options.
 
 * obj.start() - starts the spinner.
-* obj.stop() - stops the spinner.
+* obj.stop(clearLine) - stops the spinner, if clearLine is true, erases message.
 * obj.setSpinnerString(spinnerString) - sets the spinner string the specific instance.
 * Spinner.setDefaultSpinnerString(spinnerString) - sets the default spinner string for all newly created instances.
 
