@@ -1,9 +1,29 @@
-var defaultSpinnerString = '|/-\\';
+var printf = require('printf');
+
+var defaultSpinnerDelay = 60;
 
 var Spinner = function(textToShow){
   this.text = textToShow || '';
-  this.setSpinnerString(defaultSpinnerString); // use default spinner string
+  this.setSpinnerString(this.spinners[0]); // use default spinner string
+  this.setSpinnerDelay(defaultSpinnerDelay);
 };
+
+Spinner.prototype.spinners = [
+  "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏",
+  "⠋⠙⠚⠞⠖⠦⠴⠲⠳⠓",
+  "⠄⠆⠇⠋⠙⠸⠰⠠⠰⠸⠙⠋⠇⠆",
+  "⠋⠙⠚⠒⠂⠂⠒⠲⠴⠦⠖⠒⠐⠐⠒⠓⠋",
+  "⠁⠉⠙⠚⠒⠂⠂⠒⠲⠴⠤⠄⠄⠤⠴⠲⠒⠂⠂⠒⠚⠙⠉⠁",
+  "⠈⠉⠋⠓⠒⠐⠐⠒⠖⠦⠤⠠⠠⠤⠦⠖⠒⠐⠐⠒⠓⠋⠉⠈",
+  "⠁⠁⠉⠙⠚⠒⠂⠂⠒⠲⠴⠤⠄⠄⠤⠠⠠⠤⠦⠖⠒⠐⠐⠒⠓⠋⠉⠈⠈",
+  "⢄⢂⢁⡁⡈⡐⡠",
+  "⢹⢺⢼⣸⣇⡧⡗⡏",
+  "☱☲☴",
+  "|/-\\",
+  ".oO@*",
+  "⣾⣽⣻⢿⡿⣟⣯⣷",
+  "⠁⠂⠄⡀⢀⠠⠐⠈"
+];
 
 Spinner.setDefaultSpinnerString = function(value) {
   defaultSpinnerString = value;
@@ -13,11 +33,16 @@ Spinner.prototype.start = function() {
   var current = 0;
   var self = this;
   this.id = setInterval(function() {
+    var msg = printf(self.text, self.chars[current]);
     process.stdout.clearLine();
     process.stdout.cursorTo(0);
-    process.stdout.write(self.chars[current] + ' ' + self.text);
+    process.stdout.write(msg);
     current = ++current % self.chars.length;
-  }, 200);
+  }, this.delay);
+};
+
+Spinner.prototype.setSpinnerDelay = function(n) {
+  this.delay = n;
 };
 
 Spinner.prototype.setSpinnerString = function(str) {
