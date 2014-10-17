@@ -16,9 +16,9 @@ npm install cli-spinner
 
 Creates a new spinner object with the default options.
 
-* obj.start() - starts the spinner.
+* obj.start([string]) - starts the spinner. (accepts printf style string input)
 * obj.stop() - stops the spinner.
-* obj.setSpinnerString("String Here %s") - sets the spinner string the specific instance. (accepts printf input)
+* obj.setSpinnerString(spinnerString) - sets the spinner string the specific instance.
 * obj.setSpinnerDelay(spinnerDelay) - sets the spinner animation speed.
 * Spinner.setDefaultSpinnerString(spinnerString) - sets the default spinner string for all newly created instances.
 
