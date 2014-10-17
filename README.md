@@ -18,15 +18,17 @@ Creates a new spinner object with the default options.
 
 * obj.start() - starts the spinner.
 * obj.stop() - stops the spinner.
-* obj.setSpinnerString(spinnerString) - sets the spinner string the specific instance.
+* obj.setSpinnerString("String Here %s") - sets the spinner string the specific instance. (accepts printf input)
+* obj.setSpinnerDelay(spinnerDelay) - sets the spinner animation speed.
 * Spinner.setDefaultSpinnerString(spinnerString) - sets the default spinner string for all newly created instances.
+
 
 ## Example
 
 ```js
 var Spinner = require('cli-spinner').Spinner;
 
-var spinner = new Spinner('processing..');
+var spinner = new Spinner('processing.. %s');
 spinner.setSpinnerString('|/-\\');
 spinner.start();
 ```
