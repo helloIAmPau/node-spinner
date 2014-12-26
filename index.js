@@ -24,7 +24,10 @@ Spinner.prototype.setSpinnerString = function(str) {
   this.chars = str.split("");
 };
 
-Spinner.prototype.stop = function() {
+Spinner.prototype.stop = function(clearLine) {
+  if (this.id && clearLine) {
+    process.stdout.clearLine();
+  }
   clearInterval(this.id);
 };
 
