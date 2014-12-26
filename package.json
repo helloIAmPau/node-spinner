@@ -1,10 +1,13 @@
 {
   "name": "cli-spinner",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "Pasquale Boemio <boemianrapsodi@gmail.com>",
   "contributors": [
     {
       "name": "Brian Hirt"
+    },
+    {
+      "name": "Nathan Bleigh"
     }
   ],
   "description": "A simple spinner",
