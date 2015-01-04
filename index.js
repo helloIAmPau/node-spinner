@@ -1,34 +1,93 @@
-var defaultSpinnerString = '|/-\\';
+var defaultSpinnerString = 0;
+var defaultSpinnerDelay = 60;
 
 var Spinner = function(textToShow){
   this.text = textToShow || '';
-  this.setSpinnerString(defaultSpinnerString); // use default spinner string
+  this.setSpinnerString(defaultSpinnerString);
+  this.setSpinnerDelay(defaultSpinnerDelay);
 };
+
+Spinner.spinners = [
+  '|/-\\',
+  '⠂-–—–-',
+  '◐◓◑◒',
+  '←↖↑↗→↘↓↙',
+  '┤┘┴└├┌┬┐',
+  '◢◣◤◥',
+  '.oO°Oo.',
+  '.oO@*',
+  '☱☲☴',
+  '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏',
+  '⠋⠙⠚⠞⠖⠦⠴⠲⠳⠓',
+  '⠄⠆⠇⠋⠙⠸⠰⠠⠰⠸⠙⠋⠇⠆',
+  '⠋⠙⠚⠒⠂⠂⠒⠲⠴⠦⠖⠒⠐⠐⠒⠓⠋',
+  '⠁⠉⠙⠚⠒⠂⠂⠒⠲⠴⠤⠄⠄⠤⠴⠲⠒⠂⠂⠒⠚⠙⠉⠁',
+  '⠈⠉⠋⠓⠒⠐⠐⠒⠖⠦⠤⠠⠠⠤⠦⠖⠒⠐⠐⠒⠓⠋⠉⠈',
+  '⠁⠁⠉⠙⠚⠒⠂⠂⠒⠲⠴⠤⠄⠄⠤⠠⠠⠤⠦⠖⠒⠐⠐⠒⠓⠋⠉⠈⠈',
+  '⢄⢂⢁⡁⡈⡐⡠',
+  '⢹⢺⢼⣸⣇⡧⡗⡏',
+  '⣾⣽⣻⢿⡿⣟⣯⣷',
+  '⠁⠂⠄⡀⢀⠠⠐⠈'
+];
 
 Spinner.setDefaultSpinnerString = function(value) {
   defaultSpinnerString = value;
 };
 
+Spinner.setDefaultSpinnerDelay = function(value) {
+  defaultSpinnerDelay = value;
+};
+
 Spinner.prototype.start = function() {
   var current = 0;
   var self = this;
+  var hasPos = self.text.indexOf('%s') > -1;
   this.id = setInterval(function() {
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
-    process.stdout.write(self.chars[current] + ' ' + self.text);
+    var msg = hasPos ? self.text.replace('%s', self.chars[current]) : self.chars[current] + ' ' + self.text;
+    clearLine();
+    process.stdout.write(msg);
     current = ++current % self.chars.length;
-  }, 200);
+  }, this.delay);
+};
+
+Spinner.prototype.setSpinnerDelay = function(n) {
+  this.delay = n;
 };
 
 Spinner.prototype.setSpinnerString = function(str) {
-  this.chars = str.split("");
+  this.chars = mapToSpinner(str, this.spinners).split('');
 };
 
-Spinner.prototype.stop = function(clearLine) {
-  if (this.id && clearLine) {
-    process.stdout.clearLine();
-  }
+Spinner.prototype.stop = function(clear) {
   clearInterval(this.id);
+  if (clear) {
+    clearLine();
+  }
 };
+
+// Helpers
+
+function isInt(value) {
+  return (typeof value==='number' && (value%1)===0);
+}
+
+function mapToSpinner(value, spinners) {
+  // Not an integer, return as strng
+  if (!isInt(value)) {
+    return value + '';
+  }
+
+  // Check if index is within bounds
+  value = (value >= Spinner.spinners.length) ? 0 : value;
+  // If negative, count from the end
+  value = (value < 0) ? Spinner.spinners.length + value : value;
+
+  return Spinner.spinners[value];
+}
+
+function clearLine() {
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+}
 
 exports.Spinner = Spinner;

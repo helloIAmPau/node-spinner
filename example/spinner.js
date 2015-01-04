@@ -1,27 +1,43 @@
-//var Spinner = require('cli-spinner').Spinner; <- if you use npm
+
 var Spinner = require('../index.js').Spinner;
+var numSpinners = Spinner.spinners.length;
+var spinner = null;
+var index = 0;
+var delay = 5000;
 
-var spinner = new Spinner(': default spinner instance');
-spinner.start();
-setTimeout(function() {
-    spinner.stop();
-    process.stdout.write('\n');
-
-    spinner = new Spinner(': using instance spinner string');
-
-    // set default spinner string for just this instance
-    spinner.setSpinnerString('▉▊▋▌▍▎▏▎▍▌▋▊▉');
-
-    spinner.start();
+function nextSpinner(d) {
+    d = d || delay;
 
     setTimeout(function() {
-        spinner.stop();
-	process.stdout.write('\n');
+        if (spinner !== null) {
+            spinner.stop();
+            process.stdout.write('\n');
+        }
 
-	// set default spinner string for all new instances
-	Spinner.setDefaultSpinnerString('.oO@*');
+        spinner = new Spinner('Spinner ' + (index+1) + ' of ' + numSpinners);
+        spinner.setSpinnerString(index);
+        spinner.start();
 
-	spinner = new Spinner(': press ctrl-c to stop');
-	spinner.start();
-    },5000);
-},5000);
+        index++;
+
+        if (index < numSpinners) {
+            nextSpinner();
+        } else {
+            spinner.stop();
+            process.stdout.write('\n');
+            spinner = new Spinner('Spinner at custom position %s <--');
+            spinner.start();
+
+            setTimeout(function() {
+                spinner.stop();
+                process.stdout.write('\n');
+                spinner = new Spinner('Custom spinner with custom speed');
+                spinner.setSpinnerString('slow');
+                spinner.setSpinnerDelay(500);
+                spinner.start();
+            }, delay);
+        }
+    }, d);
+}
+
+nextSpinner(0);
