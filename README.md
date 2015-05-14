@@ -2,7 +2,7 @@
 
 A simple spinner for node cli.
 
-[![NPM version](https://badge.fury.io/js/cli-spinner.png)](http://badge.fury.io/js/cli-spinner)
+[![NPM](https://nodei.co/npm/cli-spinner.png?downloads=true&downloadRank=true)](https://nodei.co/npm/cli-spinner/) [![NPM](https://nodei.co/npm-dl/cli-spinner.png?months=6&height=3)](https://nodei.co/npm/cli-spinner/)
 
 ---
 
