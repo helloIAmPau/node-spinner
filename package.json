@@ -1,8 +1,11 @@
 {
   "name": "cli-spinner",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Pasquale Boemio <boemianrapsodi@gmail.com>",
   "contributors": [
+    {
+      "name": "Bryce Kahle"
+    },
     {
       "name": "Brian Hirt"
     },
@@ -21,6 +24,6 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=0.8"
+    "node": ">=0.10"
   }
 }
