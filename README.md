@@ -62,3 +62,4 @@ To see a demonstration of the built-in spinners, point your console at the `exam
 node spinner.js
 ````
 
+![preview](img/spinner.gif "Spinner")
