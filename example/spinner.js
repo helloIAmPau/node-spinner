@@ -1,4 +1,3 @@
-
 var Spinner = require('../index.js').Spinner;
 var numSpinners = Spinner.spinners.length;
 var spinner = null;
