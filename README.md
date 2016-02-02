@@ -54,6 +54,14 @@ Sets the default spinner string for all newly created instances. Accepts either 
 
 Sets the default spinner delay for all newly created instances.
 
+**`Spinner.setSpinnerTitle(spinnerTitle)`**
+
+Sets the spinner title. Use printf-style strings to position the spinner.
+
+**`Spinner.isSpinning()`**
+
+Returns true/false depending on whether the spinner is currently spinning.
+
 ##Demo
 
 To see a demonstration of the built-in spinners, point your console at the `example` folder and run:
