@@ -52,14 +52,17 @@ Spinner.setDefaultSpinnerDelay = function(value) {
 Spinner.prototype.start = function() {
   var current = 0;
   var self = this;
-  var hasPos = self.text.indexOf('%s') > -1;
   this.id = setInterval(function() {
-    var msg = hasPos ? self.text.replace('%s', self.chars[current]) : self.chars[current] + ' ' + self.text;
+    var msg = self.text.indexOf('%s') > -1 ? self.text.replace('%s', self.chars[current]) : self.chars[current] + ' ' + self.text;
     clearLine();
     process.stdout.write(msg);
     current = ++current % self.chars.length;
   }, this.delay);
 };
+
+Spinner.prototype.isSpinning = function() {
+  return this.id === undefined;
+}
 
 Spinner.prototype.setSpinnerDelay = function(n) {
   this.delay = n;
@@ -69,8 +72,13 @@ Spinner.prototype.setSpinnerString = function(str) {
   this.chars = mapToSpinner(str, this.spinners).split('');
 };
 
+Spinner.prototype.setSpinnerTitle = function(str) {
+  this.text = str;
+}
+
 Spinner.prototype.stop = function(clear) {
   clearInterval(this.id);
+  this.id = undefined;
   if (clear) {
     clearLine();
   }
@@ -97,8 +105,8 @@ function mapToSpinner(value, spinners) {
 }
 
 function clearLine() {
-    readline.clearLine(process.stdout, 0);
-    readline.cursorTo(process.stdout, 0);
+  readline.clearLine(process.stdout, 0);
+  readline.cursorTo(process.stdout, 0);
 }
 
 exports.Spinner = Spinner;
