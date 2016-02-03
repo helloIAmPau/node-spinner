@@ -61,7 +61,7 @@ Spinner.prototype.start = function() {
 };
 
 Spinner.prototype.isSpinning = function() {
-  return this.id === undefined;
+  return this.id !== undefined;
 }
 
 Spinner.prototype.setSpinnerDelay = function(n) {
