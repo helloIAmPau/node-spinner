@@ -1,4 +1,4 @@
-var Spinner = require('../index.js').Spinner;
+var Spinner = require('../').Spinner;
 var numSpinners = Spinner.spinners.length;
 var spinner = null;
 var index = 0;
@@ -17,9 +17,8 @@ function nextSpinner(d) {
         spinner.setSpinnerString(index);
         spinner.start();
 
-        index++;
-
         if (index < numSpinners) {
+            index++;
             nextSpinner();
         } else {
             spinner.stop();
