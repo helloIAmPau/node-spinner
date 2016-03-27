@@ -3,6 +3,13 @@ var readline = require('readline');
 var defaultSpinnerString = 0;
 var defaultSpinnerDelay = 60;
 
+
+function defaultOnTick(msg) {
+  clearLine();
+  process.stdout.write(msg);
+};
+
+
 var Spinner = function(textToShow){
   this.text = textToShow || '';
   this.setSpinnerString(defaultSpinnerString);
@@ -50,13 +57,16 @@ Spinner.setDefaultSpinnerDelay = function(value) {
   defaultSpinnerDelay = value;
 };
 
-Spinner.prototype.start = function() {
+Spinner.prototype.start = function(onTick) {
+  onTick = onTick || defaultOnTick;
+
   var current = 0;
   var self = this;
   this.id = setInterval(function() {
     var msg = self.text.indexOf('%s') > -1 ? self.text.replace('%s', self.chars[current]) : self.chars[current] + ' ' + self.text;
-    clearLine();
-    process.stdout.write(msg);
+
+    onTick(msg);
+
     current = ++current % self.chars.length;
   }, this.delay);
 };
