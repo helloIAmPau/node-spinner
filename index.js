@@ -1,46 +1,25 @@
 var readline = require('readline');
 
+
 var defaultSpinnerString = 0;
 var defaultSpinnerDelay = 60;
 
+
+function defaultOnTick(msg) {
+  clearLine();
+  process.stdout.write(msg);
+};
+
+
 var Spinner = function(textToShow){
+  if(!(this instanceof Spinner)) return new Spinner(textToShow)
+
   this.text = textToShow || '';
   this.setSpinnerString(defaultSpinnerString);
   this.setSpinnerDelay(defaultSpinnerDelay);
 };
 
-Spinner.spinners = [
-  '|/-\\',
-  '⠂-–—–-',
-  '◐◓◑◒',
-  '◴◷◶◵',
-  '◰◳◲◱',
-  '▖▘▝▗',
-  '■□▪▫',
-  '▌▀▐▄',
-  '▉▊▋▌▍▎▏▎▍▌▋▊▉',
-  '▁▃▄▅▆▇█▇▆▅▄▃',
-  '←↖↑↗→↘↓↙',
-  '┤┘┴└├┌┬┐',
-  '◢◣◤◥',
-  '.oO°Oo.',
-  '.oO@*',
-  '🌍🌎🌏',
-  '◡◡ ⊙⊙ ◠◠',
-  '☱☲☴',
-  '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏',
-  '⠋⠙⠚⠞⠖⠦⠴⠲⠳⠓',
-  '⠄⠆⠇⠋⠙⠸⠰⠠⠰⠸⠙⠋⠇⠆',
-  '⠋⠙⠚⠒⠂⠂⠒⠲⠴⠦⠖⠒⠐⠐⠒⠓⠋',
-  '⠁⠉⠙⠚⠒⠂⠂⠒⠲⠴⠤⠄⠄⠤⠴⠲⠒⠂⠂⠒⠚⠙⠉⠁',
-  '⠈⠉⠋⠓⠒⠐⠐⠒⠖⠦⠤⠠⠠⠤⠦⠖⠒⠐⠐⠒⠓⠋⠉⠈',
-  '⠁⠁⠉⠙⠚⠒⠂⠂⠒⠲⠴⠤⠄⠄⠤⠠⠠⠤⠦⠖⠒⠐⠐⠒⠓⠋⠉⠈⠈',
-  '⢄⢂⢁⡁⡈⡐⡠',
-  '⢹⢺⢼⣸⣇⡧⡗⡏',
-  '⣾⣽⣻⢿⡿⣟⣯⣷',
-  '⠁⠂⠄⡀⢀⠠⠐⠈',
-  '🌑🌒🌓🌔🌕🌝🌖🌗🌘🌚'
-];
+Spinner.spinners = require('./spinners.json');
 
 Spinner.setDefaultSpinnerString = function(value) {
   defaultSpinnerString = value;
@@ -50,13 +29,19 @@ Spinner.setDefaultSpinnerDelay = function(value) {
   defaultSpinnerDelay = value;
 };
 
-Spinner.prototype.start = function() {
+Spinner.prototype.start = function(onTick) {
+  onTick = onTick || defaultOnTick;
+
   var current = 0;
   var self = this;
+
   this.id = setInterval(function() {
-    var msg = self.text.indexOf('%s') > -1 ? self.text.replace('%s', self.chars[current]) : self.chars[current] + ' ' + self.text;
-    clearLine();
-    process.stdout.write(msg);
+    var msg = self.text.indexOf('%s') > -1
+            ? self.text.replace('%s', self.chars[current])
+            : self.chars[current] + ' ' + self.text;
+
+    onTick(msg);
+
     current = ++current % self.chars.length;
   }, this.delay);
 };
@@ -85,6 +70,7 @@ Spinner.prototype.stop = function(clear) {
   }
 };
 
+
 // Helpers
 
 function isInt(value) {
@@ -97,10 +83,12 @@ function mapToSpinner(value, spinners) {
     return value + '';
   }
 
+  var length = Spinner.spinners.length;
+
   // Check if index is within bounds
-  value = (value >= Spinner.spinners.length) ? 0 : value;
+  value = (value >= length) ? 0 : value;
   // If negative, count from the end
-  value = (value < 0) ? Spinner.spinners.length + value : value;
+  value = (value < 0) ? length + value : value;
 
   return Spinner.spinners[value];
 }
@@ -109,5 +97,6 @@ function clearLine() {
   readline.clearLine(process.stdout, 0);
   readline.cursorTo(process.stdout, 0);
 }
+
 
 exports.Spinner = Spinner;
