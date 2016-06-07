@@ -30,6 +30,17 @@ spinner.start();
 
 Creates a new spinner object with the default options.
 
+**`var obj = new Spinner({
+    text: 'processing.. %s',
+    stream: process.stderr,
+    onTick: function(msg){
+        this.clearLine(this.stream);
+        this.stream.write(msg);
+    }
+})`**
+
+Creates a new spinner object with advanced options. The options can be used in any combination you like.
+
 **`obj.start()`**
 
 Starts the spinner.
