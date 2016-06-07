@@ -27,7 +27,7 @@ spinner.start();
 ## API
 
 ```
-var obj = new Spinner('title')
+var obj = new Spinner('processing.. %s')
 
 var obj = new Spinner({
     text: 'processing.. %s',
