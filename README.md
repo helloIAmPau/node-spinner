@@ -26,7 +26,7 @@ spinner.start();
 
 ## API
 
-**```
+```
 var obj = new Spinner('title')
 
 var obj = new Spinner({
@@ -37,7 +37,7 @@ var obj = new Spinner({
         this.stream.write(msg);
     }
 })
-```**
+```
 
 Create a new spinner object. The advanced options can be used in any combination, none of them are required.
 
