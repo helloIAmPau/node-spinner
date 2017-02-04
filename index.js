@@ -1,23 +1,20 @@
 var readline = require('readline');
 
-
 var defaultSpinnerString = 0;
 var defaultSpinnerDelay = 60;
-
 
 function defaultOnTick(msg) {
   this.clearLine(this.stream);
   this.stream.write(msg);
 };
 
-
 var Spinner = function(options){
   if(!(this instanceof Spinner)) return new Spinner(options)
 
   if(typeof options === "string"){
-      options = { text: options };
-  }else if(!options){
-      options = {};
+    options = { text: options };
+  } else if(!options){
+    options = {};
   }
 
   this.text = options.text || '';
@@ -25,7 +22,6 @@ var Spinner = function(options){
   this.setSpinnerDelay(defaultSpinnerDelay);
   this.onTick = options.onTick || defaultOnTick;
   this.stream = options.stream || process.stdout;
-
 };
 
 Spinner.spinners = require('./spinners.json');
@@ -45,8 +41,8 @@ Spinner.prototype.start = function() {
 
   this.id = setInterval(function() {
     var msg = self.text.indexOf('%s') > -1
-            ? self.text.replace('%s', self.chars[current])
-            : self.chars[current] + ' ' + self.text;
+      ? self.text.replace('%s', self.chars[current])
+      : self.chars[current] + ' ' + self.text;
 
     self.onTick(msg);
 
@@ -104,7 +100,5 @@ function mapToSpinner(value, spinners) {
 
   return Spinner.spinners[value];
 }
-
-
 
 exports.Spinner = Spinner;
