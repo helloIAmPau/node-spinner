@@ -6,17 +6,26 @@ var defaultSpinnerDelay = 60;
 
 
 function defaultOnTick(msg) {
-  clearLine();
-  process.stdout.write(msg);
+  this.clearLine(this.stream);
+  this.stream.write(msg);
 };
 
 
-var Spinner = function(textToShow){
-  if(!(this instanceof Spinner)) return new Spinner(textToShow)
+var Spinner = function(options){
+  if(!(this instanceof Spinner)) return new Spinner(options)
 
-  this.text = textToShow || '';
+  if(typeof options === "string"){
+      options = { text: options };
+  }else if(!options){
+      options = {};
+  }
+
+  this.text = options.text || '';
   this.setSpinnerString(defaultSpinnerString);
   this.setSpinnerDelay(defaultSpinnerDelay);
+  this.onTick = options.onTick || defaultOnTick;
+  this.stream = options.stream || process.stdout;
+
 };
 
 Spinner.spinners = require('./spinners.json');
@@ -29,8 +38,7 @@ Spinner.setDefaultSpinnerDelay = function(value) {
   defaultSpinnerDelay = value;
 };
 
-Spinner.prototype.start = function(onTick) {
-  onTick = onTick || defaultOnTick;
+Spinner.prototype.start = function() {
 
   var current = 0;
   var self = this;
@@ -40,7 +48,7 @@ Spinner.prototype.start = function(onTick) {
             ? self.text.replace('%s', self.chars[current])
             : self.chars[current] + ' ' + self.text;
 
-    onTick(msg);
+    self.onTick(msg);
 
     current = ++current % self.chars.length;
   }, this.delay);
@@ -66,10 +74,14 @@ Spinner.prototype.stop = function(clear) {
   clearInterval(this.id);
   this.id = undefined;
   if (clear) {
-    clearLine();
+    this.clearLine(this.stream);
   }
 };
 
+Spinner.prototype.clearLine = function(stream) {
+  readline.clearLine(stream, 0);
+  readline.cursorTo(stream, 0);
+}
 
 // Helpers
 
@@ -93,10 +105,6 @@ function mapToSpinner(value, spinners) {
   return Spinner.spinners[value];
 }
 
-function clearLine() {
-  readline.clearLine(process.stdout, 0);
-  readline.cursorTo(process.stdout, 0);
-}
 
 
 exports.Spinner = Spinner;
