@@ -81,7 +81,7 @@ Sets the spinner title. Use printf-style strings to position the spinner.
 
 Returns true/false depending on whether the spinner is currently spinning.
 
-##Demo
+## Demo
 
 To see a demonstration of the built-in spinners, point your console at the `example` folder and run:
 
