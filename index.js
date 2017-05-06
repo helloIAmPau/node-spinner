@@ -48,6 +48,8 @@ Spinner.prototype.start = function() {
 
     current = ++current % self.chars.length;
   }, this.delay);
+  
+  return this;
 };
 
 Spinner.prototype.isSpinning = function() {
