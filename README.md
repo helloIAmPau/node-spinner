@@ -24,7 +24,7 @@ spinner.setSpinnerString('|/-\\');
 spinner.start();
 ````
 
-## API
+## APIs
 
 ```
 var obj = new Spinner('processing.. %s')
