@@ -18,6 +18,7 @@
   ],
   "description": "A simple spinner",
   "main": "./index.js",
+  "typings": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/helloIAmPau/node-spinner.git"
