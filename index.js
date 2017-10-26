@@ -28,14 +28,17 @@ Spinner.spinners = require('./spinners.json');
 
 Spinner.setDefaultSpinnerString = function(value) {
   defaultSpinnerString = value;
+
+  return this;
 };
 
 Spinner.setDefaultSpinnerDelay = function(value) {
   defaultSpinnerDelay = value;
+
+  return this;
 };
 
 Spinner.prototype.start = function() {
-
   var current = 0;
   var self = this;
 
@@ -48,7 +51,7 @@ Spinner.prototype.start = function() {
 
     current = ++current % self.chars.length;
   }, this.delay);
-  
+
   return this;
 };
 
@@ -58,14 +61,20 @@ Spinner.prototype.isSpinning = function() {
 
 Spinner.prototype.setSpinnerDelay = function(n) {
   this.delay = n;
+
+  return this;
 };
 
 Spinner.prototype.setSpinnerString = function(str) {
   this.chars = mapToSpinner(str, this.spinners).split('');
+
+  return this;
 };
 
 Spinner.prototype.setSpinnerTitle = function(str) {
   this.text = str;
+
+  return this;
 }
 
 Spinner.prototype.stop = function(clear) {
@@ -74,11 +83,15 @@ Spinner.prototype.stop = function(clear) {
   if (clear) {
     this.clearLine(this.stream);
   }
+
+  return this;
 };
 
 Spinner.prototype.clearLine = function(stream) {
   readline.clearLine(stream, 0);
   readline.cursorTo(stream, 0);
+
+  return this;
 }
 
 // Helpers
