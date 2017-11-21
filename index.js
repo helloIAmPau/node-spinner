@@ -42,7 +42,7 @@ Spinner.prototype.start = function() {
   var current = 0;
   var self = this;
 
-  this.id = setInterval(function() {
+  var iteration = function() {
     var msg = self.text.indexOf('%s') > -1
       ? self.text.replace('%s', self.chars[current])
       : self.chars[current] + ' ' + self.text;
@@ -50,7 +50,10 @@ Spinner.prototype.start = function() {
     self.onTick(msg);
 
     current = ++current % self.chars.length;
-  }, this.delay);
+  };
+
+  iteration();
+  this.id = setInterval(iteration, this.delay);
 
   return this;
 };
