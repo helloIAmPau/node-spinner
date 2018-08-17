@@ -69,7 +69,8 @@ Spinner.prototype.setSpinnerDelay = function(n) {
 };
 
 Spinner.prototype.setSpinnerString = function(str) {
-  this.chars = mapToSpinner(str, this.spinners).split('');
+  const map = mapToSpinner(str, this.spinners);
+  this.chars = Array.isArray(map) ? map : map.split('');
 
   return this;
 };

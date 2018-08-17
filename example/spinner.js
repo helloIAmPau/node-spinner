@@ -5,7 +5,7 @@ var index = 0;
 var delay = 5000;
 
 function nextSpinner(d) {
-  d = d || delay;
+  d = (d === 0) ? d : delay;
 
   setTimeout(function() {
     if (spinner !== null) {
