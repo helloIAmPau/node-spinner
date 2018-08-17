@@ -86,6 +86,8 @@ Spinner.prototype.stop = function(clear) {
   this.id = undefined;
   if (clear) {
     this.clearLine(this.stream);
+  } else {
+    this.stream.write('\n');
   }
 
   return this;
