@@ -21,7 +21,7 @@ var Spinner = function(options){
   this.setSpinnerString(defaultSpinnerString);
   this.setSpinnerDelay(defaultSpinnerDelay);
   this.onTick = options.onTick || defaultOnTick;
-  this.stream = options.stream || process.stdout;
+  this.stream = options.stream || process.stderr;
 };
 
 Spinner.spinners = require('./spinners.json');
