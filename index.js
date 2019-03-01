@@ -39,6 +39,10 @@ Spinner.setDefaultSpinnerDelay = function(value) {
 };
 
 Spinner.prototype.start = function() {
+  if(this.stream === process.stdout && this.stream.isTTY !== true) {
+    return this;
+  }
+
   var current = 0;
   var self = this;
 
@@ -82,8 +86,13 @@ Spinner.prototype.setSpinnerTitle = function(str) {
 }
 
 Spinner.prototype.stop = function(clear) {
+  if(this.isSpinning === false) {
+    return this;
+  }
+
   clearInterval(this.id);
   this.id = undefined;
+
   if (clear) {
     this.clearLine(this.stream);
   }
