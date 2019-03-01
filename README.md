@@ -4,7 +4,6 @@ A simple spinner for node cli.
 
 [![NPM](https://nodei.co/npm/cli-spinner.png?downloads=true&downloadRank=true)](https://nodei.co/npm/cli-spinner/) [![NPM](https://nodei.co/npm-dl/cli-spinner.png?months=6&height=3)](https://nodei.co/npm/cli-spinner/)
 
-[![gitcheese.com](https://s3.amazonaws.com/gitcheese-ui-master/images/badge.svg)](https://www.gitcheese.com/donate/users/1024472/repos/14378143)
 ---
 
 ## Installation
